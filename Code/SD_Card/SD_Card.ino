@@ -3,11 +3,10 @@ const int buttonPin = 2;
 int buttonState = 0;
 int lastButtonState = 0;
 
+const int chipSelect = 4;
 
 #include <SPI.h>
 #include <SD.h>
-
-File myFile;
 
 void setup() {
   // put your setup code here, to run once:
@@ -19,21 +18,13 @@ void setup() {
 
   Serial.print("Initializing SD card...");
 
-  if (!SD.begin(4)) {
-    Serial.println("initialization failed!");
+  // see if the card is present and can be initialized:
+  if (!SD.begin(chipSelect)) {
+    Serial.println("Card failed, or not present");
+    // don't do anything more:
     return;
   }
-  
-  Serial.println("initialization done.");
-
-  myFile = SD.open("test.txt", FILE_WRITE);
-  if (myFile){
-    Serial.println("Ready for data!");
-  }
-  else {
-    // if the file didn't open, print an error:
-    Serial.println("error opening test.txt");
-  }
+  Serial.println("card initialized.");
     
   pinMode(buttonPin, INPUT);
   
@@ -41,22 +32,29 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  String dataString = "";
+  
   buttonState = digitalRead(buttonPin);
-
-  if (myFile){
-    // if the file opened okay, write to it:
-    if(buttonState != lastButtonState){
-      if (buttonState == HIGH){
-        Serial.println("CLICK");
-        myFile.println("CLICK");
-      }
-    lastButtonState = buttonState;
+  if(buttonState != lastButtonState){
+    if (buttonState == HIGH){
+      Serial.println("CLICK");
+      dataString += "Click, ";
     }
-  }
-  else {
-    Serial.println("SD card not correctly initialized");
+  lastButtonState = buttonState;
   }
 
+  File dataFile = SD.open("datalog.txt", FILE_WRITE);
+  // if the file is available, write to it:
+  if (dataFile) {
+    dataFile.println(dataString);
+    dataFile.close();
+    // print to the serial port too:
+    Serial.println(dataString);
+  }
+  // if the file isn't open, pop up an error:
+  else {
+    Serial.println("error opening datalog.txt");
+  }
+ 
 } 
 
