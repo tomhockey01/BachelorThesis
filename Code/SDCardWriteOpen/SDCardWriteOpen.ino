@@ -3,7 +3,12 @@
 
 File myFile;
 
-boolean a = true;
+boolean a = false;
+
+const int buttonPin = 2; 
+
+int buttonState = 0;
+int lastButtonState = 0;
 
 void setup() {
   // Open serial communications and wait for port to open:
@@ -20,16 +25,29 @@ void setup() {
     return;
   }
   Serial.println("initialization done.");
+
+  pinMode(buttonPin, INPUT);
 }
 
 
 void loop() {
   // nothing happens after setup
+  String dataString = "";
+  buttonState = digitalRead(buttonPin);
+  if(buttonState != lastButtonState){
+    if (buttonState == HIGH){
+      dataString.concat("Click, ");
+      a = true;
+      Serial.println(dataString);
+    }
+  lastButtonState = buttonState;
+  
+  }
   
   while(a){
     myFile = SD.open("test.txt", FILE_WRITE);
     if (myFile) {
-      myFile.println("DOE HET NOU");
+      myFile.println(dataString);
       // close the file:
       myFile.close();
       Serial.println("done.");

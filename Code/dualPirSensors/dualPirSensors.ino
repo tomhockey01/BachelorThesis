@@ -17,12 +17,15 @@ void setup() {
  pinMode(PIR_OUT2, INPUT);
 }
 
+int readPir(int input) {
+  int pirState = analogRead(input);
+  return pirState;
+}
 
 
 void loop() {
-  pirState1 = analogRead(PIR_OUT1);
-  pirState2 = analogRead(PIR_OUT2);
-
+  pirState1 = readPir(PIR_OUT1);
+  pirState2 = readPir(PIR_OUT2);
 
   if((pirState1 > 600) || (pirState1 < 400)) {
     movement = true;

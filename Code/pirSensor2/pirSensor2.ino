@@ -19,25 +19,24 @@ void setup() {
 
 void loop() {
   pirState1 = analogRead(PIR_OUT1);
-  pirState2 = analogRead(PIR_OUT2);
+  //pirState2 = analogRead(PIR_OUT2);
 
+  Serial.println(pirState1);
 
-
-  if((pirState1 < 600) && (pirState1 > 400)) {
-    Serial.println("no movement");
-    movement = false;
-    oldMovement = movement;
-  }
-  else{
-    movement = true;
-    if(movement != oldMovement){
-      Serial.println("movement");
-    }
-    oldMovement = movement;
-  }
+//  if((pirState1 < 600) && (pirState1 > 400)) {
+//    Serial.println("no movement");
+//    movement = false;
+//    oldMovement = movement;
+//  }
+//  else{
+//    movement = true;
+//    if(movement != oldMovement){
+//      Serial.println("movement");
+//    }
+//    oldMovement = movement;
+//  }
   
-
-delay(500);
+delay(1000);
 }
 
 

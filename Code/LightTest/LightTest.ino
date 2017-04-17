@@ -4,7 +4,7 @@
 
 TKLightSensor ldr(I0);
 
-File myFile;
+//File myFile;
 
 void setup(){
   // put your setup code here, to run once:
@@ -14,24 +14,24 @@ void setup(){
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
-  Serial.print("Initializing SD card...");
+  //Serial.print("Initializing SD card...");
 
-  if (!SD.begin(4)) {
-    Serial.println("initialization failed!");
-    return;
+  //if (!SD.begin(4)) {
+    //Serial.println("initialization failed!");
+    //return;
   }
   
-  Serial.println("initialization done.");
-
-  myFile = SD.open("test.txt", FILE_WRITE);
-  if (myFile){
-    Serial.println("Ready for data!");
-  }
-  else {
-    // if the file didn't open, print an error:
-    Serial.println("error opening test.txt");
-  }
-}
+//  Serial.println("initialization done.");
+//
+//  myFile = SD.open("test.txt", FILE_WRITE);
+//  if (myFile){
+//    Serial.println("Ready for data!");
+//  }
+//  else {
+//    // if the file didn't open, print an error:
+//    Serial.println("error opening test.txt");
+//  }
+//}
 
 float getLight(){
   float total = 0;
@@ -49,15 +49,15 @@ void loop() {
   Serial.println("The average is: ");
   Serial.println(average);
   
-  if(myFile){
-    if(average < 500){
-      Serial.println("LOW LIGHT!");
-      myFile.println("LOW LIGHT!");
-    }
-  }
-  else {
-    Serial.println("SD card not correctly initialized");
-  }
+//  if(myFile){
+//    if(average < 500){
+//      Serial.println("LOW LIGHT!");
+//      myFile.println("LOW LIGHT!");
+//    }
+//  }
+//  else {
+//    Serial.println("SD card not correctly initialized");
+//  }
   
   
   delay(1000);
