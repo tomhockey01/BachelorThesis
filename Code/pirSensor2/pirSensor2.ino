@@ -1,5 +1,5 @@
 #define PIR_OUT1 A1
-#define PIR_OUT2 A2
+//#define PIR_OUT2 A2
 
 
 
@@ -12,7 +12,7 @@ void setup() {
  Serial.begin(9600);
  
  pinMode(PIR_OUT1, INPUT);
- pinMode(PIR_OUT2, INPUT);
+ //pinMode(PIR_OUT2, INPUT);
 }
 
 
