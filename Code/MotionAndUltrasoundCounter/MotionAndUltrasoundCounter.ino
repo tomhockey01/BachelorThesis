@@ -12,7 +12,6 @@ boolean buttonState;
 boolean lastButtonState = false;
 
 boolean movement = false;
-boolean oldMovement;
 
 boolean profPresent = false;
 boolean oldProfPresent = false;
