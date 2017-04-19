@@ -1,34 +1,37 @@
-#include <dht.h>
-#include <SD.h> //Load SD card library
-#include <SPI.h>
+#include <dht.h>;
+#include "Timer.h"
 
 dht DHT;
 
 #define DHT11_PIN 8
 
-const int chipSelect = 4;
-File tempData;
+Timer t;                                              //instantiate the timer object
+const unsigned long period1 = 1000;                  // 10 seconds
 
 void setup(){
   Serial.begin(9600);
-  SD.begin(4);
+
+  t.every(period1, getTemp);
+  t.every(period1, getHum);
 }
 
 void loop()
 {
-  int chk = DHT.read11(DHT11_PIN);
-  tempData = SD.open("tempData.txt", FILE_WRITE);
-  if (tempData){
-    Serial.print("Temperature = ");
-    Serial.println(DHT.temperature);
-    Serial.print("Humidity = ");
-    Serial.println(DHT.humidity);
-    delay(1000);
-
-    tempData.print(DHT.temperature);
-    tempData.print(",");
-    tempData.println(DHT.humidity);
-    tempData.close();
-  }
+  t.update();
 }
 
+float getTemp(){
+  int chk = DHT.read11(DHT11_PIN);
+  float temp = DHT.temperature;
+  
+  Serial.print("The temp is: ");
+  Serial.println(temp);
+  return temp;
+}
+float getHum(){
+  float hum = DHT.humidity;
+  int chk = DHT.read11(DHT11_PIN);
+  Serial.print("The humidity is: ");
+  Serial.println(hum);
+  return hum;
+}
