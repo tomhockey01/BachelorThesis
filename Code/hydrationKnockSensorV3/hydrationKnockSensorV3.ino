@@ -36,7 +36,7 @@ int countHydration(){
 int getDrinks(){
   int realDrinks = hydrationCounter / 2;
   Serial.println(realDrinks);
-  return hydrationCounter;
+  return realDrinks;
   
 }
 
