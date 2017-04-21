@@ -4,10 +4,10 @@
 
 int hydrationCounter = 0;
 int sensorReading;
-const int threshold = 75;
+const int threshold = 25;
 
 unsigned long lastDebounceTime = 0;
-unsigned long debounceDelay = 750;
+unsigned long debounceDelayKnock = 500;
 
 Timer t;                                              //instantiate the timer object
 const unsigned long period1 = 10000;                  // 10 seconds
@@ -25,7 +25,7 @@ int countHydration(){
   if (sensorReading >= threshold) {
     long pastTime = millis();
   
-    if (pastTime > (lastDebounceTime + debounceDelay)){
+    if (pastTime > (lastDebounceTime + debounceDelayKnock)){
       hydrationCounter ++;
     }
     lastDebounceTime = pastTime;
@@ -34,13 +34,14 @@ int countHydration(){
 }
 
 int getDrinks(){
-  int realDrinks = hydrationCounter / 2;
+  int realDrinks = (hydrationCounter);
+//  hydrationCounter = 0;
   Serial.println(realDrinks);
   return realDrinks;
-  
 }
 
 void loop() {
   countHydration();
   t.update();
+  
 }

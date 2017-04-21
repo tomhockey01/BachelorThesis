@@ -6,6 +6,8 @@
 #define trigPin2 6
 #define echoPin2 5
 
+#define PIEZO A0 
+
 boolean profPresent = false;
 
 const int wall = 100;
@@ -13,8 +15,13 @@ const int door = 100;
 
 int counter = 0;
 
+int hydrationCounter = 0;
+int sensorReading;
+const int threshold = 25;
+
 unsigned long lastDebounceTime = 0;
 unsigned long debounceDelay = 500;
+unsigned long debounceDelayKnock = 750;
 
 Timer t;                                              //instantiate the timer object
 const unsigned long period1 = 10000;                  // 10 seconds
@@ -63,6 +70,28 @@ int getPeople(){
   return realPeople;
 }
 
+int countHydration(){
+  sensorReading = analogRead(PIEZO);
+  
+  if (sensorReading >= threshold) {
+    long pastTime = millis();
+  
+    if (pastTime > (lastDebounceTime + debounceDelayKnock)){
+      hydrationCounter ++;
+    }
+    lastDebounceTime = pastTime;
+  }
+  return hydrationCounter;
+}
+
+int getDrinks(){
+  int realDrinks = hydrationCounter / 2;
+  Serial.print("Number of drinks is: ");
+  Serial.println(realDrinks);
+  return realDrinks;
+}
+
+
 void setup() {
   // put your setup code here, to run once: 
   Serial.begin (9600);
@@ -72,12 +101,16 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 
+  pinMode(PIEZO, INPUT);
+
   t.every(period1, getPeople);
+  t.every(period1, getDrinks);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   personCounter();
+  countHydration();
   t.update();
   delay(50);
   
