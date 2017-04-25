@@ -3,11 +3,11 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define trigPin 2
-#define echoPin 3
+#define trigPin 5
+#define echoPin 6
 
-#define trigPin2 6
-#define echoPin2 5
+#define trigPin2 2
+#define echoPin2 3
 
 #define PIEZO A0 
 
@@ -17,7 +17,7 @@
 
 boolean profPresent = false;
 
-const int wall = 100;
+const int wall = 50;
 const int door = 100;
 const int chipSelect = 4;
 
@@ -91,7 +91,7 @@ int personCounter(){
 }
 
 int getPeople(){
-  realPeople = counter; // 2;
+  realPeople = counter; // dividing by 2 is not necessary anymore since this is done in the total number of ppl function;
   Serial.print("The number of people now is: ");
   Serial.println(realPeople);
   return realPeople;
@@ -152,7 +152,7 @@ float getLight(){
 
 char getValues(){
   int numberOfPeople = getPeople();
-  totalNumberOfPeople += numberOfPeople;
+  totalNumberOfPeople += numberOfPeople/2;
 
   Serial.print("The total people you've seen today is: ");
   Serial.println(totalNumberOfPeople);
@@ -186,7 +186,7 @@ char getValues(){
 
   Serial.println("-------------------------------------------");
   
-  writeValues(Drinks,Steps,food,light,hum,temp,people,work,totalDrinks,avgLight,avgTemp,avgHum,totalPeople );
+  writeValues(realDrinks, light, temp, hum, numberOfPeople, totalNumberOfDrinks, averageLight,averageTemp,averageHum,totalNumberOfPeople );
 
   numberOfPeople = 0;
   realPeople = 0;
