@@ -35,26 +35,43 @@ def read_csv():
 	data = pd.read_csv('TESTDATA.CSV')
 	return data
 
-def getRow(rowNumber):
-	return data.loc[rowNumber]
-
-def calculateScores(relevantData):
-	scorelist=[]
+def calculatePercentages(relevantData):
+	percentageList=[]
 	for i, standard in zip(relevantData, standardString):
-		scorelist.append(i/standard)
+		percentageList.append(i/standard)
+	return percentageList
 
-	print(scorelist)
 
+def calculateTotal(hour):
+	physicalPercentages = [hour[0],hour[5],hour[6]]
+	environmentPercentages = [hour[2],hour[3],hour[4]]
+	mentalPercentages = [hour[1],hour[7]]
 
+	print(physicalPercentages)
+	print(environmentPercentages)
+	print(mentalPercentages)
+
+	'''
+	totalScore = 0
+	for i, thresh in zip(hour, threshString):
+		if (i <= thresh):
+			totalScore += 1
+		else:
+			totalScore += i
+	print(totalScore)
+	'''
 data =read_csv()
 
+calculatedPercentagesList = []
 for index, row in data.iterrows():
 	singleRow = row.to_string(index=False, dtype=False).split('\n')
 	relevantData = list(map(int,singleRow[0:8]))
-	calculateScores(relevantData)
+	percentages = calculatePercentages(relevantData)
+	calculatedPercentagesList.append(percentages)
 
-print(thresDrinks)
-	
+for hour in calculatedPercentagesList:
+	calculateTotal(hour)
+
 
 
 
