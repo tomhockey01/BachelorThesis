@@ -4,7 +4,7 @@
 
 int hydrationCounter = 0;
 int sensorReading;
-const int threshold = 25;
+const int threshold = 100;
 
 unsigned long lastDebounceTime = 0;
 unsigned long debounceDelayKnock = 500;
@@ -22,11 +22,14 @@ void setup() {
 int countHydration(){
   sensorReading = analogRead(PIEZO);
   
+  
   if (sensorReading >= threshold) {
+    Serial.println(sensorReading);
     long pastTime = millis();
   
     if (pastTime > (lastDebounceTime + debounceDelayKnock)){
       hydrationCounter ++;
+      Serial.println("noDrink");
     }
     lastDebounceTime = pastTime;
   }

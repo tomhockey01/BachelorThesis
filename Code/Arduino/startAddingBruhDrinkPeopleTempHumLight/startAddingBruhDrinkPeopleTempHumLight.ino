@@ -35,7 +35,7 @@ float humTotal = 0.0;
 
 int hydrationCounter = 0;
 int sensorReading;
-const int threshold = 10;
+const int threshold = 100;
 
 unsigned long lastDebounceTime = 0;
 unsigned long debounceDelay = 500;
@@ -186,7 +186,7 @@ char getValues(){
 
   Serial.println("-------------------------------------------");
   
-  writeValues(numberOfDrinks, totalNumberOfDrinks, numberOfPeople, totalNumberOfPeople, light, averageLight, hum, averageHum, temp, averageTemp);
+  writeValues(Drinks,Steps,food,light,hum,temp,people,work,totalDrinks,avgLight,avgTemp,avgHum,totalPeople );
 
   numberOfPeople = 0;
   realPeople = 0;
@@ -198,11 +198,13 @@ char getValues(){
   
 }
 
-char writeValues(int drinksNow, int drinksTotal, int peopleNow, int peopleTotal, float lightNow, float lightTotal, float humidityNow, float humidityTotal, float temperatureNow, float temperatureTotal){
+char writeValues(int drinksNow, float lightNow, float temperatureNow,float humidityNow,  int peopleNow,  int drinksTotal,float temperatureTotal, float lightTotal, float humidityTotal,   int peopleTotal){
   String dataString = "";
   dataString += drinksNow;
   dataString += ",";
-  dataString += peopleNow;
+  dataString += "S";
+  dataString += ",";
+  dataString += "F";
   dataString += ",";
   dataString += lightNow;
   dataString += ",";
@@ -210,15 +212,25 @@ char writeValues(int drinksNow, int drinksTotal, int peopleNow, int peopleTotal,
   dataString += ",";
   dataString += humidityNow;
   dataString += ",";
+  dataString += peopleNow;
+  dataString += ",";
+  dataString += "W";
+  dataString += ",";
   dataString += drinksTotal;
   dataString += ",";
-  dataString += peopleTotal;
+  dataString += "ST";
+  dataString += ",";
+  dataString += "FT";
   dataString += ",";
   dataString += lightTotal;
   dataString += ",";
   dataString += temperatureTotal;
   dataString += ",";
   dataString += humidityTotal;
+  dataString += ",";
+  dataString += peopleTotal;
+  dataString += ",";
+  dataString += "WT";
 
   File dataFile = SD.open("datalog.csv", FILE_WRITE);
 
