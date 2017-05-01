@@ -18,11 +18,18 @@ weightSteps = 0.7
 weightFood = 0.4
 weightWork = 0.6
 
+environmentWeight = 0.5
+
 standardString = [standardDrinks, standardSteps, standardFood, standardLight, standardTemp, standardHum, standardPeople, standardWork]
 weightString = [weightDrinks, weightSteps, weightFood, weightLight, weightTemp, weightHum, weightPeople, weightWork]
 	
 def read_csv():
-	data = pd.read_csv('GOOD_DATALOG0.CSV')
+	dfs={ i : pd.DataFrame.from_csv('GOOD_DATALOG'+str(i)+'.csv',sep=',',\
+	header=None, index_col=None) for i in range(2)} # n files.
+	panel=pd.Panel(dfs)
+	data=panel.sum(axis=0)
+	data = data/2
+
 	return data
 
 def calculatePercentages(relevantData):
@@ -36,11 +43,6 @@ def calculatePercentages(relevantData):
 
 def calculateTotal(hour):
 	conceptList = []
-	totalPhysicalScore = 0
-	for concept, standard, weight in zip(hour[0:3], standardString[0:3], weightString[0:3]):
-		#print(concept, standard, weight)
-		totalPhysicalScore += (concept * weight)
-	conceptList.append(totalPhysicalScore)
 
 	totalEnvironmentalScore = 0
 	for concept, standard, weight in zip(hour[3:6], standardString[3:6], weightString[3:6]):
@@ -48,12 +50,22 @@ def calculateTotal(hour):
 		totalEnvironmentalScore += (concept * weight)
 	conceptList.append(totalEnvironmentalScore)
 
+	totalPhysicalScore = 0
+	for concept, standard, weight in zip(hour[0:3], standardString[0:3], weightString[0:3]):
+		#print(concept, standard, weight)
+		totalPhysicalScore += (concept * weight)
+	totalPhysicalScore += (totalEnvironmentalScore * environmentWeight)
+
+	conceptList.append(totalPhysicalScore)
+
 	totalMentalScore = 0
 	for concept, standard, weight in zip(hour[6:8], standardString[6:8], weightString[6:8]):
 		#print(concept, standard, weight)
 		totalMentalScore += (concept * weight)
-	conceptList.append(totalPhysicalScore)
+	totalPhysicalScore += (totalEnvironmentalScore * environmentWeight)
 
+	conceptList.append(totalPhysicalScore)
+	#print(conceptList)
 	return conceptList
 
 def calculatePerformance(totals):
@@ -61,7 +73,7 @@ def calculatePerformance(totals):
 	for singleTotal in totals:
 		totalPerformance += singleTotal
 
-	print(totalPerformance)
+	return totalPerformance
 
 data =read_csv()
 
@@ -75,9 +87,10 @@ for index, row in data.iterrows():
 for hour in calculatedPercentagesList:
 	#print(hour)
 	totals = calculateTotal(hour)
-	calculatePerformance(totals)
+	performance = calculatePerformance(totals)
 	
-
+	a = (performance - -1) / (3.5 - -1)
+	print(a)
 
 
 

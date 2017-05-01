@@ -18,7 +18,7 @@
 boolean profPresent = false;
 
 const int wall = 50;
-const int door = 100;
+const int door = 150;
 const int chipSelect = 4;
 
 int counter = 0;
@@ -45,7 +45,7 @@ unsigned long personTime = millis();
 
 Timer t;                                              //instantiate the timer object
 dht DHT;                                              //instantiate the sensor object
-const unsigned long period1 = 10000;                  // 10 seconds
+const unsigned long period1 = 10000;                  // 15 min seconds
 
 int totalNumberOfPeople = 0;
 int realPeople = 0;
@@ -81,7 +81,7 @@ int personCounter(){
       //Serial.println("YES");
       long pastTimeProf = millis();
       if (pastTimeProf > (lastDebounceTime + debounceDelay)){
-        Serial.println("NO");  
+        //Serial.println("NO");  
         counter ++ ;
       }
       lastDebounceTime = pastTimeProf;
@@ -152,7 +152,7 @@ float getLight(){
 
 char getValues(){
   int numberOfPeople = getPeople();
-  totalNumberOfPeople += numberOfPeople/2;
+  totalNumberOfPeople += (numberOfPeople/2);
 
   Serial.print("The total people you've seen today is: ");
   Serial.println(totalNumberOfPeople);
