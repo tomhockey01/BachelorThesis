@@ -96,15 +96,62 @@ for hour in calculatedPercentagesList:
 	totals = calculateTotal(hour)
 	#print(totals)
 	performance = calculatePerformance(totals)
+	#print(performance)
 	performances.append((performance - (minPerformance)) / (maxPerformance - (minPerformance))) #normalize performance
 
-print(performances)
+#print(calculatedPercentagesList)
+#print(performances)
 
-"""	
-for i in performances:
-	if i > 0.5:
-		#Total environment is positive
-	else:
-		#Total environment is negative
 
-"""
+#print("__________________________________________________")
+
+timeCounter = 0
+totalOutput = []
+for singlePercentages in calculatedPercentagesList:
+	outputList = []
+	if performances[timeCounter] > 0.5:
+		#positive overall
+		#print("YES")
+		percentageCounter = 0
+		negativeList = []
+		positiveList = []
+		for singlePercentage in singlePercentages:
+			if singlePercentage < 0.9:
+				#print("KLEINER" + str(percentageCounter))
+				negativeList.append(percentageCounter)
+				percentageCounter += 1
+			else:
+				#print("GROTER" + str(percentageCounter))
+				positiveList.append(percentageCounter)
+				percentageCounter += 1
+		outputList.append("pos")
+		outputList.append(negativeList)
+		outputList.append(positiveList)
+	else: 
+		#negative overall
+		#print("NO")
+		percentageCounter = 0
+		negativeList = []
+		positiveList = []
+		for singlePercentage in singlePercentages:
+			if singlePercentage < 0.9:
+				#print("KLEINER" + str(percentageCounter))
+				negativeList.append(percentageCounter)
+				percentageCounter += 1
+			else:
+				#print("GROTER" + str(percentageCounter))
+				positiveList.append(percentageCounter)
+				percentageCounter += 1
+		outputList.append("neg")
+		outputList.append(negativeList)
+		outputList.append(positiveList)
+
+	timeCounter += 1
+	totalOutput.append(outputList)
+
+
+print(totalOutput)
+	
+
+
+
