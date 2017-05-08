@@ -3,7 +3,7 @@ import time
 
 standardDrinks = 5.5
 standardPeople = 5
-standardLight = 115
+standardLight = 900
 standardTemp = 20
 standardHum = 19
 standardSteps = 650
