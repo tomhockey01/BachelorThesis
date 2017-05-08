@@ -120,7 +120,12 @@ for index, row in data.iterrows():
 		percentages[4] = 1
 	elif (relevantData[4] >= 23):
 		percentages[4] = (relevantData[4]/standardString[4])-1
-
+		
+	if (relevantData[3] < 1000) and (relevantData[3] > 800):
+		percentages[3] = 1
+	elif (relevantData[3] >= 1000):
+		percentages[3] = (relevantData[3]/standardString[3])-1
+		
 	calculatedPercentagesList.append(percentages)
 
 performances=[]
