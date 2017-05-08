@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 standardDrinks = 5.5
 standardPeople = 5
@@ -81,6 +82,33 @@ def calculatePerformance(totals):
 
 	return totalPerformance
 
+def fileNames(porn):
+	fileName = ""
+	if porn[0] == "pos":
+		fileName += str("1")
+		if len(porn[1])>0:
+			fileName += str("p")
+			for label in porn[1]:
+				fileName+= str(label)
+		if len(porn[2])>0:
+			fileName += str("n")
+			for label in porn [2]:
+				fileName+=str(label)
+	else:
+		fileName += str("2")
+		if len(porn[1])>0:
+			fileName += str("p")
+			for label in porn[1]:
+				fileName+= str(label)
+		if len(porn[2])>0:
+			fileName += str("n")
+			for label in porn [2]:
+				fileName+=str(label)
+	return fileName
+
+		
+
+
 data =read_csv()
 
 calculatedPercentagesList = []
@@ -107,6 +135,7 @@ for hour in calculatedPercentagesList:
 
 timeCounter = 0
 totalOutput = []
+del calculatedPercentagesList[4:5]
 for singlePercentages in calculatedPercentagesList:
 	outputList = []
 	if performances[timeCounter] > 0.5:
@@ -134,6 +163,7 @@ for singlePercentages in calculatedPercentagesList:
 		percentageCounter = 0
 		negativeList = []
 		positiveList = []
+		del singlePercentages[4:6]
 		for singlePercentage in singlePercentages:
 			if singlePercentage < 0.9:
 				#print("KLEINER" + str(percentageCounter))
@@ -150,8 +180,17 @@ for singlePercentages in calculatedPercentagesList:
 	timeCounter += 1
 	totalOutput.append(outputList)
 
+#for image in getImageList:
 
-print(totalOutput)
+def getImage():
+	for i in totalOutput:
+		imageName = fileNames(i)
+		time.sleep(1)
+		print(imageName)
+		
+getImage()
+
+
 	
 
 

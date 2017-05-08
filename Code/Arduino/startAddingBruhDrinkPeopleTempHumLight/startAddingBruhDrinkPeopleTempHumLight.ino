@@ -18,7 +18,7 @@
 boolean profPresent = false;
 
 const int wall = 50;
-const int door = 150;
+const int door = 50;
 const int chipSelect = 4;
 
 int counter = 0;
@@ -35,7 +35,7 @@ float humTotal = 0.0;
 
 int hydrationCounter = 0;
 int sensorReading;
-const int threshold = 100;
+const int threshold = 150;
 
 unsigned long lastDebounceTime = 0;
 unsigned long debounceDelay = 500;
@@ -78,7 +78,7 @@ int personCounter(){
     //Serial.println("in while");
     boolean personIn = readDistance(trigPin2, echoPin2);
     if(personIn) {
-      //Serial.println("YES");
+      Serial.println("YES");
       long pastTimeProf = millis();
       if (pastTimeProf > (lastDebounceTime + debounceDelay)){
         //Serial.println("NO");  
@@ -152,7 +152,7 @@ float getLight(){
 
 char getValues(){
   int numberOfPeople = getPeople();
-  totalNumberOfPeople += (numberOfPeople/2);
+  totalNumberOfPeople += (numberOfPeople);
 
   Serial.print("The total people you've seen today is: ");
   Serial.println(totalNumberOfPeople);

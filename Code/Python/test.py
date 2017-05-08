@@ -5,7 +5,7 @@
 # tested with Python2.5 and pyglet1.1a2  by  vegaseat   22apr2008
 import pyglet
 # pick an animated gif file you have in the working directory
-ag_file = "test3.gif"
+ag_file = "hond.jpg"
 animation = pyglet.resource.animation(ag_file)
 sprite = pyglet.sprite.Sprite(animation)
 # create a window and set it to the image size
@@ -17,5 +17,5 @@ pyglet.gl.glClearColor(*green)
 @win.event
 def on_draw():
     win.clear()
-    sprite.draw()
+    sprite.draw()	
 pyglet.app.run()
