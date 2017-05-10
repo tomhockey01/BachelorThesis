@@ -82,27 +82,27 @@ def calculatePerformance(totals):
 
 	return totalPerformance
 
-def fileNames(porn):
+def fileNames(positiveNegative):
 	fileName = ""
-	if porn[0] == "pos":
+	if positiveNegative[0] == "pos":
 		fileName += str("1")
-		if len(porn[1])>0:
+		if len(positiveNegative[1])>0:
 			fileName += str("p")
-			for label in porn[1]:
+			for label in positiveNegative[1]:
 				fileName+= str(label)
-		if len(porn[2])>0:
+		if len(positiveNegative[2])>0:
 			fileName += str("n")
-			for label in porn [2]:
+			for label in positiveNegative[2]:
 				fileName+=str(label)
 	else:
-		fileName += str("2")
-		if len(porn[1])>0:
+		fileName += str("0")
+		if len(positiveNegative[1])>0:
 			fileName += str("p")
-			for label in porn[1]:
+			for label in positiveNegative[1]:
 				fileName+= str(label)
-		if len(porn[2])>0:
+		if len(positiveNegative[2])>0:
 			fileName += str("n")
-			for label in porn [2]:
+			for label in positiveNegative[2]:
 				fileName+=str(label)
 	return fileName
 
