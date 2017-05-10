@@ -30,7 +30,7 @@ minPerformance = 0.046
 
 def read_csv():
 	dfs={ i : pd.DataFrame.from_csv('GOOD_DATALOG'+str(i)+'.csv',sep=',',\
-	header=None, index_col=None) for i in range(1)} # n files.
+	header=None, index_col=None) for i in range(2)} # n files.
 	panel=pd.Panel(dfs)
 	data=panel.sum(axis=0)
 	data = data/2
@@ -83,27 +83,27 @@ def calculatePerformance(totals):
 
 	return totalPerformance
 
-def fileNames(porn):
+def fileNames(positiveNegative):
 	fileName = ""
-	if porn[0] == "pos":
+	if positiveNegative[0] == "pos":
 		fileName += str("1")
-		if len(porn[1])>0:
+		if len(positiveNegative[1])>0:
 			fileName += str("p")
-			for label in porn[1]:
+			for label in positiveNegative[1]:
 				fileName+= str(label)
-		if len(porn[2])>0:
+		if len(positiveNegative[2])>0:
 			fileName += str("n")
-			for label in porn [2]:
+			for label in positiveNegative[2]:
 				fileName+=str(label)
 	else:
-		fileName += str("2")
-		if len(porn[1])>0:
+		fileName += str("0")
+		if len(positiveNegative[1])>0:
 			fileName += str("p")
-			for label in porn[1]:
+			for label in positiveNegative[1]:
 				fileName+= str(label)
-		if len(porn[2])>0:
+		if len(positiveNegative[2])>0:
 			fileName += str("n")
-			for label in porn [2]:
+			for label in positiveNegative[2]:
 				fileName+=str(label)
 	return fileName
 
@@ -195,11 +195,19 @@ for singlePercentages in calculatedPercentagesList:
 
 def getImage():
 	for i in totalOutput:
-		imageName = fileNames(i)
-		time.sleep(1)
-		print(imageName)
+		with Image.open('Images/outputImages/' + fileNames(i) + '.png') as outputImage:
+			outputImage.show()
+			time.sleep(0.5)
+			outputImage.close()
+			
+		
+		
+		
+		
+	
 		
 getImage()
+
 
 
 	

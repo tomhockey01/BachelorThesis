@@ -62,7 +62,7 @@ int readDistance(int pin1, int pin2){
   digitalWrite(pin1, LOW);
   duration = pulseIn(pin2, HIGH);
   distance = (duration / 2) / 29.1;
-  //Serial.println(distance);
+  Serial.println(distance);
   if (distance < wall){
       return true;
   }
@@ -285,7 +285,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if(millis()-personTime > 50)     //Has one second passed?
+  if(millis()-personTime > 250)    
   {
     personCounter();
     personTime = millis();
