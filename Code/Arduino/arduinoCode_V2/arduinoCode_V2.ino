@@ -17,8 +17,8 @@
 
 boolean profPresent = false;
 
-const int wall = 50;
-const int door = 50;
+const int wall = 70;
+const int door = 80;
 const int chipSelect = 4;
 
 int counter = 0;
@@ -45,7 +45,7 @@ unsigned long personTime = millis();
 
 Timer t;                                              //instantiate the timer object
 dht DHT;                                              //instantiate the sensor object
-const unsigned long period1 = 10000;                  // 15 min seconds
+const unsigned long period1 = 1800000;                  // 15 min seconds
 
 int totalNumberOfPeople = 0;
 int realPeople = 0;
