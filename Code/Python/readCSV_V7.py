@@ -29,7 +29,7 @@ maxPerformance = 4.60
 minPerformance = 0.046
 
 def read_csv():
-	dfs={ i : pd.DataFrame.from_csv('GOOD_DATALOG'+str(i)+'.csv',sep=',',\
+	dfs={ i : pd.DataFrame.from_csv('DATALOGTEST/DATALOG'+str(i)+'.CSV',sep=',',\
 	header=None, index_col=None) for i in range(2)} # n files.
 	panel=pd.Panel(dfs)
 	data=panel.sum(axis=0)
