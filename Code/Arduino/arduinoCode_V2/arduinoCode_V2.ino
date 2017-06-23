@@ -17,8 +17,8 @@
 
 boolean profPresent = false;
 
-const int wall = 50;
-const int door = 50;
+const int wall = 70;
+const int door = 80;
 const int chipSelect = 4;
 
 int counter = 0;
