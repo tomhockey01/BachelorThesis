@@ -105,7 +105,6 @@ for hour in calculatedPercentagesList:
 	print(hour)
 	
 	totals = calculateTotal(hour)
-	print(totals)
 	performance = calculatePerformance(totals)
 	performance = (performance - (minPerformance)) / (maxPerformance - (minPerformance))
 	for singlePercentage in hour:
